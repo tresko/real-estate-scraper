@@ -36,7 +36,12 @@ async function nepremicnineScrapper(urls) {
   }
 
   return Promise.all(
-    urls.map(async url => await loadWebsite(url, getDataFromNepremicnine, err => [])),
+    urls.map(
+      async url =>
+        await loadWebsite(url, getDataFromNepremicnine, err => {
+          console.log(err)
+        }),
+    ),
   ).then(result => result.reduce((prevArray, current) => prevArray.concat(current), []))
 }
 
@@ -56,7 +61,12 @@ async function bolhaScrapper(urls) {
   }
 
   return Promise.all(
-    urls.map(async url => await loadWebsite(url, getDataFromBolha, err => [])),
+    urls.map(
+      async url =>
+        await loadWebsite(url, getDataFromBolha, err => {
+          console.log(err)
+        }),
+    ),
   ).then(result => result.reduce((prevArray, current) => prevArray.concat(current), []))
 }
 
