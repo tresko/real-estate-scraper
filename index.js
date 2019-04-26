@@ -43,6 +43,7 @@ async function nepremicnineScrapper(urls) {
 // bolha.com
 async function bolhaScrapper(urls) {
   const getDataFromBolha = html => {
+    console.log(html)
     return $('.ad', html)
       .map(function() {
         return {
