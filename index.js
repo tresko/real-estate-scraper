@@ -10,7 +10,7 @@ const TEMPLATE_URL = './template.html'
 
 async function loadWebsite(url, successCallback = () => {}, errorCallback = err => {}) {
   const data = await puppeteer
-    .launch()
+    .launch({args: ['--no-sandbox']})
     .then(browser => browser.newPage())
     .then(page => page.goto(url.trim()).then(() => page.content()))
     .then(successCallback)
@@ -36,7 +36,12 @@ async function nepremicnineScrapper(urls) {
   }
 
   return Promise.all(
-    urls.map(async url => await loadWebsite(url, getDataFromNepremicnine, err => [])),
+    urls.map(
+      async url =>
+        await loadWebsite(url, getDataFromNepremicnine, err => {
+          console.error(err)
+        }),
+    ),
   ).then(result => result.reduce((prevArray, current) => prevArray.concat(current), []))
 }
 
@@ -55,14 +60,19 @@ async function bolhaScrapper(urls) {
   }
 
   return Promise.all(
-    urls.map(async url => await loadWebsite(url, getDataFromBolha, err => [])),
+    urls.map(
+      async url =>
+        await loadWebsite(url, getDataFromBolha, err => {
+          console.error(err)
+        }),
+    ),
   ).then(result => result.reduce((prevArray, current) => prevArray.concat(current), []))
 }
 
 async function main() {
   const nepremicnineData = await nepremicnineScrapper(
-    process.env.NEPREMICNINE_URL && process.env.NEPREMICNINE_URL.split(',')
-      ? process.env.NEPREMICNINE_URL.split(',')
+    process.env.NEPREMICNINE_URLS && process.env.NEPREMICNINE_URLS.split(',')
+      ? process.env.NEPREMICNINE_URLS.split(',')
       : [],
   )
   const bolhaData = await bolhaScrapper(
@@ -86,7 +96,7 @@ async function main() {
   })
 
   // send mail with defined transport object
-  const info = await transporter.sendMail({
+  await transporter.sendMail({
     from: process.env.MAIL_FROM, // sender address
     to: process.env.MAIL_TO, // list of receivers
     subject: 'Nepremicnine', // Subject line
@@ -94,7 +104,7 @@ async function main() {
     html: template({
       nepremicnine: nepremicnineData,
       bolha: bolhaData,
-      date: format(new Date(), 'DD.MM.YYYY, HH:MM'),
+      date: format(new Date(), 'DD.MM.YYYY, HH:mm'),
     }), // html body
   })
 
