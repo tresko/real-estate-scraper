@@ -39,3 +39,13 @@ Type the following command to run the script and press Enter:
 ```bash
 node index.js
 ```
+
+## Cron job
+You can set up a cron job inside Gitlab.com:
+
+1. Navigate to the project’s **CI / CD > Schedules** page.
+2. Click the **New schedule** button.
+3. Fill in the **Schedule a new pipeline** form.
+4. Click the **Save pipeline schedule** button.
+
+![Schedule a new pipeline](https://docs.gitlab.com/ce/user/project/pipelines/img/pipeline_schedules_new_form.png)
