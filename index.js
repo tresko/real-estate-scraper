@@ -9,6 +9,7 @@ const format = require('date-fns/format')
 const TEMPLATE_URL = './template.html'
 
 async function loadWebsite(url, successCallback = () => {}, errorCallback = err => {}) {
+  console.log(url.trim())
   const data = await puppeteer
     .launch()
     .then(browser => browser.newPage())
@@ -61,8 +62,8 @@ async function bolhaScrapper(urls) {
 
 async function main() {
   const nepremicnineData = await nepremicnineScrapper(
-    process.env.NEPREMICNINE_URL && process.env.NEPREMICNINE_URL.split(',')
-      ? process.env.NEPREMICNINE_URL.split(',')
+    process.env.NEPREMICNINE_URLS && process.env.NEPREMICNINE_URLS.split(',')
+      ? process.env.NEPREMICNINE_URLS.split(',')
       : [],
   )
   const bolhaData = await bolhaScrapper(
@@ -94,7 +95,7 @@ async function main() {
     html: template({
       nepremicnine: nepremicnineData,
       bolha: bolhaData,
-      date: format(new Date(), 'DD.MM.YYYY, HH:MM'),
+      date: format(new Date(), 'DD.MM.YYYY, HH:mm'),
     }), // html body
   })
 
