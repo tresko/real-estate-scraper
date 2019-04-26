@@ -9,7 +9,6 @@ const format = require('date-fns/format')
 const TEMPLATE_URL = './template.html'
 
 async function loadWebsite(url, successCallback = () => {}, errorCallback = err => {}) {
-  console.log(url.trim())
   const data = await puppeteer
     .launch()
     .then(browser => browser.newPage())
@@ -72,6 +71,8 @@ async function main() {
       : [],
   )
 
+  console.log(nepremicnineData, bolhaData)
+
   const content = fs.readFileSync(TEMPLATE_URL, 'utf8')
   const template = Handlebars.compile(content)
 
@@ -99,7 +100,7 @@ async function main() {
     }), // html body
   })
 
-  process.exit()
+  // process.exit()
 }
 
 main()
