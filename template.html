@@ -1,0 +1,65 @@
+<div style="width: 100%; ">
+  <div
+    style="background: #70bbd9; padding: 40px 0 30px 0; color: #ffffff; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif; text-align: center;"
+  >
+    {{ date }}
+  </div>
+  <div
+    style="padding: 24px 0; color: #153643; font-family: Arial, sans-serif; font-size: 24px; padding-bottom: 24px;"
+  >
+    <b>Nepremicnine</b>
+  </div>
+  <div>
+    {{#each nepremicnine}}
+    <div
+      style="width: 260px; padding-right: 32px; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px; float: left; min-height: 260px;"
+    >
+      <div>
+        <a
+          href="{{ url }}"
+          style="color: #153643; font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; text-decoration: none;"
+        >
+          <h2>{{ title }}</h2>
+        </a>
+        <div>
+          {{ description }}
+        </div>
+        <ul style="padding: 0; list-style-type: none;">
+          <li style="margin: 0;"><b>Cena: </b> {{ price }} {{ currency }}</li>
+          <li style="margin: 0;"><b>Velikost: </b> {{ size }}</li>
+        </ul>
+      </div>
+    </div>
+
+    {{/each}}
+  </div>
+  <div
+    style="  clear: both;
+  display: table;"
+  ></div>
+  <div
+    style="padding: 24px 0; color: #153643; font-family: Arial, sans-serif; font-size: 24px; padding-bottom: 24px;"
+  >
+    <b>Bolha</b>
+  </div>
+  <div>
+    {{#each bolha}}
+    <div
+      style="width: 260px; padding-right: 32px; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px; float: left; min-height: 180px;"
+    >
+      <div>
+        <a
+          href="{{ url }}"
+          style="color: #153643; font-family: Arial, sans-serif; font-size: 12px; line-height: 20px; text-decoration: none;"
+        >
+          <h2>{{ title }}</h2>
+        </a>
+        <ul style="padding: 0; list-style-type: none;">
+          <li style="margin: 0;"><b>Cena: </b> {{ price }}</li>
+        </ul>
+      </div>
+    </div>
+
+    {{/each}}
+  </div>
+</div>
