@@ -111,7 +111,7 @@ async function main() {
     }), // html body
   })
 
-  // process.exit()
+  process.exit()
 }
 
 main()
