@@ -10,7 +10,7 @@ const TEMPLATE_URL = './template.html'
 
 async function loadWebsite(url, successCallback = () => {}, errorCallback = err => {}) {
   const data = await puppeteer
-    .launch()
+    .launch({args: ['--no-sandbox']})
     .then(browser => browser.newPage())
     .then(page => page.goto(url.trim()).then(() => page.content()))
     .then(successCallback)
@@ -99,7 +99,7 @@ async function main() {
   })
 
   // send mail with defined transport object
-  const info = await transporter.sendMail({
+  await transporter.sendMail({
     from: process.env.MAIL_FROM, // sender address
     to: process.env.MAIL_TO, // list of receivers
     subject: 'Nepremicnine', // Subject line
